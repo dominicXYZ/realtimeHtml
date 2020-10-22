@@ -1,0 +1,581 @@
+<!doctype html>
+<html>
+	<head>
+		<title>JavaScript</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<script src = "js/jquery-3.5.1.min.js" ></script>		
+		<script src = "js/bootstrap.min.js" ></script>  
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+		
+	</head>
+	<style>
+		body {
+			color: #566787;
+			background: #f5f5f5;
+			font-family: 'Roboto', sans-serif;
+		}
+		.table-responsive {
+			margin: 30px 0;
+		}
+		.table-wrapper {
+			min-width: 1000px;
+			background: #fff;
+			padding: 20px;
+			box-shadow: 0 1px 1px rgba(0,0,0,.05);
+		}
+		.table-title {
+			padding-bottom: 10px;
+			margin: 0 0 10px;
+			min-width: 100%;
+		}
+		.table-title h2 {
+			margin: 8px 0 0;
+			font-size: 22px;
+		}
+		.search-box {
+			position: relative;        
+			float: right;
+		}
+		.search-box input {
+			height: 34px;
+			border-radius: 20px;
+			padding-left: 35px;
+			border-color: #ddd;
+			box-shadow: none;
+		}
+		.search-box input:focus {
+			border-color: #3FBAE4;
+		}
+		.search-box i {
+			color: #a0a5b1;
+			position: absolute;
+			font-size: 19px;
+			top: 8px;
+			left: 10px;
+		}
+		table.table tr th, table.table tr td {
+			border-color: #e9e9e9;
+		}
+		table.table-striped tbody tr:nth-of-type(odd) {
+			background-color: #fcfcfc;
+		}
+		table.table-striped.table-hover tbody tr:hover {
+			background: #f5f5f5;
+		}
+		table.table th i {
+			font-size: 13px;
+			margin: 0 5px;
+			cursor: pointer;
+		}
+		table.table td:last-child {
+			width: 130px;
+		}
+		table.table td a {
+			color: #a0a5b1;
+			display: inline-block;
+			margin: 0 5px;
+		}
+		table.table td a.view {
+			color: #03A9F4;
+		}
+		table.table td a.edit {
+			color: #FFC107;
+		}
+		table.table td a.delete {
+			color: #E34724;
+		}
+		table.table td i {
+			font-size: 19px;
+		}    
+		.pagination {
+			float: right;
+			margin: 0 0 5px;
+		}
+		.pagination li a {
+			border: none;
+			font-size: 95%;
+			width: 30px;
+			height: 30px;
+			color: #999;
+			margin: 0 2px;
+			line-height: 30px;
+			border-radius: 30px !important;
+			text-align: center;
+			padding: 0;
+		}
+		.pagination li a:hover {
+			color: #666;
+		}	
+		.pagination li.active a {
+			background: #03A9F4;
+		}
+		.pagination li.active a:hover {        
+			background: #0397d6;
+		}
+		.pagination li.disabled i {
+			color: #ccc;
+		}
+		.pagination li i {
+			font-size: 16px;
+			padding-top: 6px
+		}
+		.hint-text {
+			float: left;
+			margin-top: 6px;
+			font-size: 95%;
+		}    
+		</style>
+
+	<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+	</script>
+
+	<body>
+
+		 <div class="container">
+		 <h1>Registro de alumnos</h1>
+			<label>Matricula<input type="text" id="txt1" name="Name" /></label>
+		    <label>Nombre<input type="text" id="txt2" name="Name" /></label>
+			<label>Edad<input type="text" id="txt3" name="Name" /></label>
+			<label>Sexo<input type="text" id="txt4" name="Name" /></label>
+			<label>Promedio<input type="text" id="txt5" name="Name" /></label>
+			<br>
+			<button type='button' id="btn1" onclick=''>Agregar</button>
+		
+		 </div>
+
+		 
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Tabla <b>Hombres</b></h2></div>
+                    <div class="col-sm-4">
+                        <div class="search-box">
+                            <i class="material-icons">&#xE8B6;</i>
+                            <input onkeyup="onKeyUp(event)" id="txtB1" type="text" class="form-control" placeholder="Search&hellip;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Matricula</th>
+                        <th>Nombre <i class="fa fa-sort"></i></th>
+                        <th>Edad</th>
+                        <th>Sexo <i class="fa fa-sort"></i></th>
+                        <th>Promedio</th>
+                       
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id= "table">
+				
+					<tr>
+                        <td>1</td>
+                        <td>Thomas Hardy</td>
+                        <td>89 Chiaroscuro Rd.</td>
+                        <td>Portland</td>
+                        <td>97219</td>
+                        <td>
+                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+   				
+                   
+				</tbody>
+				<tbody id= "tableP">
+				
+					<tr>
+                        <td colspan="3">Total de Hombres</td>
+                        <td colspan="2">Promedio general</td>
+                       
+                    </tr>
+   				
+                   
+                </tbody>
+            </table>
+            <div class="clearfix">
+             
+                <ul class="pagination">
+                    <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                    
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    
+                    <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>  
+</div>  
+
+<br>
+
+		 
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Tabla <b>Mujeres</b></h2></div>
+                    <div class="col-sm-4">
+                        <div class="search-box">
+                            <i class="material-icons">&#xE8B6;</i>
+                            <input  onkeyup="onKeyUp2(event)" id="txtB2" type="text" class="form-control" placeholder="Search&hellip;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Matricula</th>
+                        <th>Nombre <i class="fa fa-sort"></i></th>
+                        <th>Edad</th>
+                        <th>Sexo <i class="fa fa-sort"></i></th>
+                        <th>Promedio</th>
+                       
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id= "table2">
+				
+					<tr>
+                        <td>1</td>
+                        <td>Thomas Hardy</td>
+                        <td>89 Chiaroscuro Rd.</td>
+                        <td>Portland</td>
+                        <td>97219</td>
+                        <td>
+                            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+   				
+                   
+				</tbody>
+				<tbody id= "tablePM">
+				
+					<tr>
+                        <td colspan="3">Total de Hombres</td>
+                        <td colspan="2">Promedio general</td>
+                       
+                    </tr>
+   				
+                   
+                </tbody>
+            </table>
+            <div class="clearfix">
+             
+                <ul class="pagination">
+                    <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                    
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    
+                    <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>  
+</div>  
+		
+		
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+			 https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+
+		<script>
+		  // Your web app's Firebase configuration
+		  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		  var firebaseConfig = {
+			apiKey: "AIzaSyC-823FIWcsl_Aq7VofII-8y35aENAGgr4",
+			authDomain: "basealumnos-6f504.firebaseapp.com",
+			databaseURL: "https://basealumnos-6f504.firebaseio.com",
+			projectId: "basealumnos-6f504",
+			storageBucket: "basealumnos-6f504.appspot.com",
+			messagingSenderId: "458177832494",
+			appId: "1:458177832494:web:469859ab130eb0f10da1bf",
+			measurementId: "G-RQYHQE0P3Z"
+		  };
+		  // Initialize Firebase
+		  firebase.initializeApp(firebaseConfig);
+		  firebase.analytics();
+		  
+var nombre, matricula, edad, sexo, promedio;
+var tabla = document.getElementById('table');
+var tablaFH= document.getElementById('tableP');
+var tablaFM= document.getElementById('tablePM');
+var tabla2 = document.getElementById('table2');
+
+function Ready(){
+	
+nombre = document.getElementById('txt2').value
+matricula = document.getElementById('txt1').value
+edad = document.getElementById('txt3').value
+sexo = document.getElementById('txt4').value
+promedio = document.getElementById('txt5').value
+} 
+document.getElementById('btn1').onclick =  function(){
+	
+	
+	nombre = document.getElementById('txt2').value
+	matricula = document.getElementById('txt1').value
+	edad = document.getElementById('txt3').value
+	sexo = document.getElementById('txt4').value
+	promedio = document.getElementById('txt5').value
+	
+	if(nombre.length==0){
+		alert("nombre vacio");
+	}
+	if(matricula.length==0){
+		alert("matricula vacio");
+	}
+	if(edad.length==0){
+		alert("edad vacio");
+	}
+	if(sexo.length==0){
+		alert("sexo vacio");
+	}
+	if(promedio.length==0){
+		alert("promedio vacio");
+	}
+	if(nombre.length==0 || matricula.length==0 || edad.length==0 || sexo.length==0 || promedio.length==0){
+
+	}else{
+		firebase.database().ref('Alumnos/'+ matricula).set({
+		NombreAlumno: nombre, 
+		Matricula: matricula,
+		Edad: edad,
+		Sexo: sexo,
+		Promedio: promedio
+	});
+				document.getElementById('txt1').value = "";
+				document.getElementById('txt2').value="";
+				document.getElementById('txt3').value= "";
+				document.getElementById('txt4').value="";
+				document.getElementById('txt5').value="";
+	actualizarTabla();
+	}
+	
+	
+}
+
+
+function removeTask(id){
+	if(confirm("seguro de eliminar?")){
+		console.log("id recivido: " + id);
+	firebase.database().ref('Alumnos/'+ id).remove();
+	actualizarTabla();
+	}
+	
+}
+
+function readvalues(tableRow,text,text2){
+	console.log(text);
+	console.log(text2);
+	validaDato=false;
+	if(text==true){
+		var columns=tableRow.querySelectorAll("td");
+		for(var i=0;i<columns.length;i++){
+		console.log('Column '+i+': '+columns[i].innerHTML);
+		console.log(columns[0].innerHTML);
+		tid= columns[0].innerHTML;
+		console.log("id verdadero:" +tid);
+		Eliminar(tid);
+		}
+		console.log("verd");
+		
+	}
+	
+	
+	if(validaDato==false){
+		var columns=tableRow.querySelectorAll("td");
+		for(var i=0;i<columns.length;i++){
+		console.log('Column '+i+': '+columns[i].innerHTML);
+		console.log(columns[0].innerHTML);
+		tid= columns[0].innerHTML;
+		console.log("id falso:" +tid);
+		}
+		
+		
+	}
+	if(validaDato==true){
+		var columns=tableRow.querySelectorAll("td");
+		for(var i=0;i<columns.length;i++){
+		console.log('Column '+i+': '+columns[i].innerHTML);
+		console.log(columns[0].innerHTML);
+		tid= columns[0].innerHTML;
+		console.log("id verdadero:" +tid);
+		Eliminar(tid);
+		}
+	
+	}
+
+}
+
+var rootRef = firebase.database().ref().child('Alumnos');
+
+
+tabla2.innerHTML='';
+contH=0;
+promH=0;
+tabla.innerHTML='';
+
+actualizarTabla();
+function actualizarTabla(){
+	contH=0;
+	contM=0;
+	promM=0;
+	promH=0;
+tabla2.innerHTML='';
+tabla.innerHTML='';
+rootRef.on("child_added", snap =>{
+/*
+console.log(snap.val());
+console.log(snap.child("Matricula").val());
+*/
+if(snap.child("Sexo").val()=='H'){
+	
+tabla.innerHTML+= '<tr onclick="readvalues(this,false,0);" >'+
+	'<td>'+snap.child("Matricula").val()+'</td> '+
+	'<td>'+snap.child("NombreAlumno").val()+'</td> '+
+	'<td>'+snap.child("Edad").val()+'</td> '+
+	'<td>'+snap.child("Sexo").val()+'</td> '+
+	'<td>'+snap.child("Promedio").val()+'</td> '+
+	'<td><a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>'+
+    '<a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>'+
+    '<a onclick='+'removeTask(\''+snap.child("Matricula").val()+'\')'+' href="#" class="delete" title="Delete" data-toggle="tooltip" ><i class="material-icons">&#xE872;</i></a>'+
+    '</td>'
+	+'</tr>'
+	promH+=parseInt(snap.child("Promedio").val());
+	contH++;
+	}else{
+	tabla2.innerHTML+= '<tr>'+
+	'<td>'+snap.child("Matricula").val()+'</td> '+
+	'<td>'+snap.child("NombreAlumno").val()+'</td> '+
+	'<td>'+snap.child("Edad").val()+'</td> '+
+	'<td>'+snap.child("Sexo").val()+'</td> '+
+	'<td>'+snap.child("Promedio").val()+'</td> '+
+	'<td><a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>'+
+    '<a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>'+
+    '<a onclick='+'removeTask(\''+snap.child("Matricula").val()+'\')'+' href="#" class="delete" title="Delete" data-toggle="tooltip" ><i class="material-icons">&#xE872;</i></a>'+
+    '</td>'
+	+'</tr>'
+	promM+=parseInt(snap.child("Promedio").val());
+	contM++;
+}
+console.log("cantH:" + contH);
+
+tablaFH.innerHTML='<tr>'+
+	'<td colspan="2">Cantidad de Hombres: '+contH+'</td> '+
+	'<td colspan="3">Promedio General Hombres: '+(promH/contH).toFixed(2)+'</td> '+
+	'</tr>'
+tablaFM.innerHTML='<tr>'+
+	'<td colspan="2">Cantidad de Mujeres: '+contM+'</td> '+
+	'<td colspan="3">Promedio General Mujeres: '+(promM/contM).toFixed(2)+'</td> '+
+	'</tr>'
+});
+
+
+}
+function onKeyUp(event) {
+	
+	  var keycode = event.keyCode;
+	  if(keycode == '13'){
+		textoBuscar = document.getElementById('txtB1').value
+		if(textoBuscar.length==0){
+			
+		}else{
+			
+	
+		var rootRef = firebase.database().ref().child('Alumnos');
+		rootRef.on("child_added", snap =>{
+			if(snap.child("NombreAlumno").val()==textoBuscar){
+				alert('alumno= ' +snap.child("NombreAlumno").val()); 
+				document.getElementById('txt1').value = snap.child("Matricula").val();
+				document.getElementById('txt2').value=snap.child("NombreAlumno").val();
+				document.getElementById('txt3').value= snap.child("Edad").val();
+				document.getElementById('txt4').value=snap.child("Sexo").val();
+				document.getElementById('txt5').value=snap.child("Promedio").val();
+			}else{
+			if(snap.child("Matricula").val()==textoBuscar){
+				alert('Matricula= ' +snap.child("Matricula").val()); 
+				document.getElementById('txt1').value = snap.child("Matricula").val();
+				document.getElementById('txt2').value=snap.child("NombreAlumno").val();
+				document.getElementById('txt3').value= snap.child("Edad").val();
+				document.getElementById('txt4').value=snap.child("Sexo").val();
+				document.getElementById('txt5').value=snap.child("Promedio").val();
+			}
+			}
+
+		});
+
+		}
+	
+	  }
+	}
+
+
+	function onKeyUp2(event) {
+	
+	var keycode = event.keyCode;
+	if(keycode == '13'){
+	  textoBuscar = document.getElementById('txtB2').value
+	  if(textoBuscar.length==0){
+		  
+	  }else{
+		  
+  
+	  var rootRef = firebase.database().ref().child('Alumnos');
+	  rootRef.on("child_added", snap =>{
+		  if(snap.child("NombreAlumno").val()==textoBuscar){
+			  alert('alumno= ' +snap.child("NombreAlumno").val()); 
+			  document.getElementById('txt1').value = snap.child("Matricula").val();
+			  document.getElementById('txt2').value=snap.child("NombreAlumno").val();
+			  document.getElementById('txt3').value= snap.child("Edad").val();
+			  document.getElementById('txt4').value=snap.child("Sexo").val();
+			  document.getElementById('txt5').value=snap.child("Promedio").val();
+		  }else{
+		  if(snap.child("Matricula").val()==textoBuscar){
+			  alert('Matricula= ' +snap.child("Matricula").val()); 
+			  document.getElementById('txt1').value = snap.child("Matricula").val();
+			  document.getElementById('txt2').value=snap.child("NombreAlumno").val();
+			  document.getElementById('txt3').value= snap.child("Edad").val();
+			  document.getElementById('txt4').value=snap.child("Sexo").val();
+			  document.getElementById('txt5').value=snap.child("Promedio").val();
+		  }
+		  }
+
+	  });
+
+	  }
+  
+	}
+  }
+
+</script>
+
+		
+	</body>
+</html>
